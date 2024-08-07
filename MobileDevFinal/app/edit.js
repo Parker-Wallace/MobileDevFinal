@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Text, TextInput, View, StyleSheet } from 'react-native';
-import Button from '../components/Button';
 import { useSQLiteContext } from 'expo-sqlite';
+import {Button, XGroup, Input, YStack} from 'tamagui'
 
 const update = () => {
   //used for handling what button is currently pressed for ui and replacing entries
@@ -57,7 +57,7 @@ const update = () => {
     async function setup() {
       const result = await db.getAllAsync('SELECT * FROM games');
       setGames(result);  
-      isLoading(false)
+      isLoading(false);
     }
     setup();      
   }, []);
@@ -66,59 +66,71 @@ const update = () => {
   if (loading)
     return (
       <View style={styles.container}>
-      <Text style={styles.name}>Loading</Text>
+      <Text>Loading</Text>
       
   </View>)
 else {return (
     <View style={styles.container}>
      <Text>Item to Replace</Text>
-     <View style={styles.buttonBar}> 
-     <Button label={"<"} onPress={()=> switchindex(Math.max(currentindex - 1, 0))}></Button>
+     <View style={styles.buttonBar}>
+     <Button onPress={()=> switchindex(Math.max(currentindex - 1, 0))}>{'<'}</Button>
         <Text style={styles.label}>{games[currentindex].name}</Text>
-        <Button label={'>'} onPress={()=> switchindex(Math.min(currentindex + 1, games.length - 1))}></Button>
+        <Button onPress={()=> switchindex(Math.min(currentindex + 1, games.length - 1))}>{'>'}</Button>
         </View>
-      <TextInput
+        <YStack
+        width={250}
+        padding="$4">
+        <Input size="$4" borderWidth={2} onChangeText={image => updatenewGame({...newGame, imagelink:image})} placeholder="Paste Image URL here"/>
+        <Input size="$4" borderWidth={2} onChangeText={name => updatenewGame({...newGame, name:name})} placeholder="New Name"/>
+        <Input size="$4" borderWidth={2} onChangeText={rating => updatenewGame({...newGame, rating:rating})} placeholder="New Rating"/>
+        <Input size="$4" borderWidth={2} onChangeText={year => updatenewGame({...newGame, year:year})} placeholder="New Year"/>
+        <Input size="$4" borderWidth={2} onChangeText={dev => updatenewGame({...newGame, developer:dev})} placeholder="New Developer"/>
+        </YStack>
+
+      {/* <TextInput
         style={styles.input}
-        placeholder="Paste Image URL here"
-        onChangeText={image => updatenewGame({...newGame, imagelink:image})}
+        
+        
         placeholderTextColor="#888"
       />
             <TextInput
         style={styles.input}
-        placeholder="New Name"
-        onChangeText={name => updatenewGame({...newGame, name:name})}
+        
+        
         placeholderTextColor="#888"
       />
             <TextInput
         style={styles.input}
-        placeholder="New Rating"
-        onChangeText={rating => updatenewGame({...newGame, rating:rating})}
+        
+        
         placeholderTextColor="#888"
       />
             <TextInput
         style={styles.input}
-        placeholder="New Year"
-        onChangeText={year => updatenewGame({...newGame, year:year})}
+        
+        
         placeholderTextColor="#888"
       />
         <TextInput
         style={styles.input}
-        placeholder="New Developer"
-        onChangeText={dev => updatenewGame({...newGame, developer:dev})}
+        
+        
         placeholderTextColor="#888"
-      />
-      <Button label={"submit"} onPress={() => {
-        updategames(newGame.name, newGame.imagelink, newGame.year, newGame.rating, newGame.developer, games[currentindex].name)
-        
-      }}></Button>
-            <Button label={"Add New"} onPress={() => {
-        insertNewGame(newGame.name, newGame.imagelink, newGame.year, newGame.rating, newGame.developer)
-        
-      }}></Button>
-                  <Button label={"Delete"} onPress={() => {
-        removeGame(games[currentindex].name)
-        
-      }}></Button>
+      /> */}
+      <XGroup>
+        <XGroup.Item>
+          <Button theme='blue' onPress={() => {updategames(newGame.name, newGame.imagelink, newGame.year, newGame.rating, newGame.developer, games[currentindex].name)}}>Submit</Button>
+        </XGroup.Item>
+        <XGroup.Item>
+          <Button theme='green' onPress={() => {insertNewGame(newGame.name, newGame.imagelink, newGame.year, newGame.rating, newGame.developer)}}>Add New</Button>
+        </XGroup.Item>
+        <XGroup.Item>
+          <Button theme='red' onPress={() => {removeGame(games[currentindex].name)}}>Delete</Button>
+        </XGroup.Item>
+      </XGroup>
+      {/* <Button label={"submit"} ></Button>
+            <Button label={"Add New"} ></Button>
+                  <Button label={"Delete"} ></Button> */}
     </View>
   );
 }}

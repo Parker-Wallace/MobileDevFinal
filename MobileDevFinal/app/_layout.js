@@ -1,15 +1,23 @@
 import { Slot } from 'expo-router';
 import NavBar from '../components/NavBar'
-
 import {SQLiteProvider} from 'expo-sqlite'
+import { TamaguiProvider, View, createTamagui} from 'tamagui'
+import defaultConfig from '@tamagui/config/v3'
+
+
+
+
 
 export default function HomeLayout() {
-
+const config = createTamagui(defaultConfig)
   return (
-    <SQLiteProvider databaseName='games.db' onInit={initializeDB}> 
+<TamaguiProvider config={config}>    
+  <SQLiteProvider databaseName='games.db' onInit={initializeDB}> 
     <NavBar/>
   <Slot />
-  </SQLiteProvider>
+  </SQLiteProvider></TamaguiProvider>
+
+
 );
 }
 async function initializeDB(db) {
