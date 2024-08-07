@@ -1,11 +1,12 @@
-import { Text, Image, StyleSheet, View } from 'react-native';
+import { Text, StyleSheet, View } from 'react-native';
+import {Image} from 'tamagui'
 
 export default function Games({props}) {
 
 {return (
   <View style={styles.container}>
     <Text style={styles.name}>{props["name"]}</Text>
-    <Image source={{uri: `${props["imagelink"]}`}} style={styles.image}/>
+    <Image source={{uri: `${props["imagelink"]}`, width: 300, height:500,}}/>
     <Text style={styles.year}>{props["year"]}</Text>
     <Text style={styles.rating}>{props["rating"]}</Text>
     <Text style={styles.developer}>{props["developer"]}</Text>
