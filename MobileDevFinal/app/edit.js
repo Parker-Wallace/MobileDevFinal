@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Text, TextInput, View, StyleSheet } from 'react-native';
 import { useSQLiteContext } from 'expo-sqlite';
-import {Button, XGroup, Input, YStack} from 'tamagui'
+import {Button, XGroup, Input, YStack, Spinner} from 'tamagui'
 
-const update = () => {
+
+export default function update() {
   //used for handling what button is currently pressed for ui and replacing entries
   const [currentindex, switchindex] = useState(0)
 
@@ -66,7 +67,7 @@ const update = () => {
   if (loading)
     return (
       <View style={styles.container}>
-      <Text>Loading</Text>
+      <Spinner size="small" color="$green10" />
       
   </View>)
 else {return (
@@ -87,36 +88,6 @@ else {return (
         <Input size="$4" borderWidth={2} onChangeText={dev => updatenewGame({...newGame, developer:dev})} placeholder="New Developer"/>
         </YStack>
 
-      {/* <TextInput
-        style={styles.input}
-        
-        
-        placeholderTextColor="#888"
-      />
-            <TextInput
-        style={styles.input}
-        
-        
-        placeholderTextColor="#888"
-      />
-            <TextInput
-        style={styles.input}
-        
-        
-        placeholderTextColor="#888"
-      />
-            <TextInput
-        style={styles.input}
-        
-        
-        placeholderTextColor="#888"
-      />
-        <TextInput
-        style={styles.input}
-        
-        
-        placeholderTextColor="#888"
-      /> */}
       <XGroup>
         <XGroup.Item>
           <Button theme='blue' onPress={() => {updategames(newGame.name, newGame.imagelink, newGame.year, newGame.rating, newGame.developer, games[currentindex].name)}}>Submit</Button>
@@ -128,9 +99,6 @@ else {return (
           <Button theme='red' onPress={() => {removeGame(games[currentindex].name)}}>Delete</Button>
         </XGroup.Item>
       </XGroup>
-      {/* <Button label={"submit"} ></Button>
-            <Button label={"Add New"} ></Button>
-                  <Button label={"Delete"} ></Button> */}
     </View>
   );
 }}
@@ -177,4 +145,3 @@ const styles = StyleSheet.create({
   }
 });
 
-export default update;

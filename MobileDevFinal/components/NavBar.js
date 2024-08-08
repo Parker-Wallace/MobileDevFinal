@@ -1,18 +1,15 @@
 import { Link } from "expo-router";
 import { Pressable, View, Text, StyleSheet } from "react-native";
+import { Button } from "tamagui";
 
 export default function NavBar() {
     return (
         <View style={styles.navBar}>
             <Link href={"/edit"} asChild>
-                <Pressable style={styles.button}>
-                    <Text style={styles.text}>Edit</Text>
-                </Pressable>
+                <Button>Edit</Button>
             </Link>
             <Link href={"/"} asChild>
-                <Pressable style={styles.button}>
-                    <Text style={styles.text}>Home</Text>
-                </Pressable>
+            <Button>Home</Button>
             </Link>
         </View>
     );
@@ -23,7 +20,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-around",
         backgroundColor: "#2c3e50",
-        paddingVertical: 35,
+        paddingVertical: 20,
     },
     button: {
         paddingVertical: 5,

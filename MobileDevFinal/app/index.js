@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View, Text} from "react-native";
+import { StyleSheet, View, } from "react-native";
 import { useState, useEffect } from 'react';
-import Button from 'tamagui'
+import {Button, XGroup, Text, Spinner} from 'tamagui'
 import Games from '../components/Games';
 import { useSQLiteContext } from "expo-sqlite";
 
@@ -25,19 +25,22 @@ useEffect(() => {
 if (loading) {
   return (
     <View style={styles.container}>
-    <Text style={styles.name}>Loading</Text>
+      <Spinner size="small" color="$green10" />
     </View>
     );
   } else {
   return (
     <View style={styles.container}>
-        <Games props = {games[currentindex]}/>    
-      <View style={styles.navigationButtons}>
-        <Button onPress={()=> switchindex(Math.max(currentindex - 1, 0))}>{"<"}</Button>
-        <Text style={styles.label}>Ranking: {currentindex + 1}</Text>
-        <Button onPress={()=> switchindex(Math.min(currentindex + 1, games.length - 1))}>{">"}</Button>
+      <Games props = {games[currentindex]}/>  
+      <XGroup>
+        <XGroup.Item><Button onPress={()=> switchindex(Math.max(currentindex - 1, 0))}>{"<"}</Button></XGroup.Item>
+        <XGroup.Item><Text style={styles.label}>Ranking: {currentindex + 1}</Text></XGroup.Item>
+        <XGroup.Item><Button onPress={()=> switchindex(Math.min(currentindex + 1, games.length - 1))}>{">"}</Button></XGroup.Item>
+      </XGroup>
+          
         
-      </View>
+        
+        
       <StatusBar style="auto" />
     </View>
   );

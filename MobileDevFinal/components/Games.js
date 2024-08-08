@@ -1,5 +1,5 @@
-import { Text, StyleSheet, View } from 'react-native';
-import {Image} from 'tamagui'
+import { StyleSheet, View } from 'react-native';
+import {Image, Text} from 'tamagui'
 
 export default function Games({props}) {
 
@@ -17,7 +17,7 @@ export default function Games({props}) {
 const styles = StyleSheet.create ({
   container: {
     flex: 1,
-    padding: 16,
+    padding: 10,
     backgroundColor: '#f5f5f5',
     alignItems: 'center',
   },
